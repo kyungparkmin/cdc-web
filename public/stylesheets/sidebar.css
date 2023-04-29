@@ -1,0 +1,48 @@
+body {
+    padding-top: 56px;
+}
+@media (min-width: 768px) {
+    body {
+        padding-top: 64px;
+    }
+}
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    /* Enable scrolling */
+    overflow-y: auto;
+    /* Sidebar width */
+    width: 250px;
+    /* Background color */
+    /*background: #f8f9fa;*/
+    padding: 20px;
+    background-color: green;
+}
+/* Sidebar header */
+.sidebar-header {
+    margin-bottom: 20px;
+}
+/* Sidebar menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-menu li {
+    margin-bottom: 10px;
+}
+.sidebar-menu li a {
+    display: block;
+    /* Text color */
+    color: #212529;
+    /* Hover text color */
+    text-decoration: none;
+}
+.sidebar-menu li.active a {
+    /* Active text color */
+    color: #007bff;
+}

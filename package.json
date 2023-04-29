@@ -12,10 +12,13 @@
     "dotenv": "^16.0.3",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.17.3",
     "helmet": "^6.1.5",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "mysql2": "^3.2.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0"
   },
