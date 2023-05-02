@@ -22,13 +22,13 @@
     <div class="inner">
       <div class="header-d-flex" style="display: flex; justify-content: space-between; align-items: center">
         <div>&nbsp;</div>
-        <h1 style="margin-left: 150px; margin-top: 10px;">Task</h1>
-          <div>
+        <h1 style="margin-left: 150px; margin-top: 10px;"><%= title %></h1>
+          <div style="margin-right: 10px;">
             <% if (user) { %>
               <span><%= user.username %> 님</span>
             <% } else { %>
             <% } %>
-            <a class="" href="/auth/logout">로그아웃</a>
+            <a class="btn" href="/auth/logout">로그아웃</a>
           </div>
       </div>
 

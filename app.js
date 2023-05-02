@@ -8,9 +8,10 @@ const passport = require('passport');
 const { expressCspHeader, INLINE, SELF } = require('express-csp-header');
 require('dotenv').config();
 
-const indexRouter = require('./routes/pages');
-const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
+const agentRouter = require('./routes/agent');
+const taskRouter = require('./routes/task');
 
 const app = express();
 
@@ -59,8 +60,9 @@ app.use(expressCspHeader({
 
 // Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/task', taskRouter);
+app.use('/agent', agentRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -9,6 +9,8 @@ router.post('/', isLoggedIn, taskModule.create);
 router.get('/', isLoggedIn, taskModule.find);
 router.delete('/:id', isLoggedIn, taskModule.drop);
 router.patch('/:id', isLoggedIn, taskModule.modify);
-router.get('/')
+
+router.get('/target', isLoggedIn, taskModule.getTargets);
+router.get('/source', isLoggedIn, taskModule.getSources);
 
 module.exports = router;

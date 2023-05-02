@@ -1,11 +1,11 @@
-const { User } = require('../models');
+const { Task, Agent } = require('../models');
 
 exports.create = async (req, res, next) => {
-  const { name, UserId, sourceId, targetId } = req.body;
+  const { name, sourceId, targetId } = req.body;
   try {
-    await User.create({ name, UserId, sourceId, targetId });
+    await Task.create({ name, UserId: req.user.id , sourceId, targetId });
 
-    res.redirect('/');
+    res.send('<script>alert("작업이 생성되었습니다"); location.href = "/"</script>')
   } catch (err) {
     console.error(err);
     next(err);
@@ -23,7 +23,9 @@ exports.find = async (req, res, next) => {
 
 exports.drop = async (req, res, next) => {
   try {
+    await Task.destroy({ where: { id: req.params.id, UserId: req.user.id }});
 
+    res.redirect('/');
   } catch (err) {
     console.error(err);
     next(err);
@@ -39,10 +41,26 @@ exports.modify = async (req, res, next) => {
   }
 }
 
-exports.findSources = async (req, res, next) => {
+exports.getSources = async (req, res, next) => {
+  try {
 
+  } catch (err) {
+
+  }
 }
 
-exports.findTargets = async (req, res, next) => {
+exports.getTargets = async (req, res, next) => {
+  try {
+    const targets = await Agent.findAll( {
+      where: {
+        UserId: req.user.id,
+        type: 1
+      }
+    });
 
+    res.json(targets);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 }
