@@ -4,7 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const passport = require('passport')
+const passport = require('passport');
+const { expressCspHeader, INLINE, SELF } = require('express-csp-header');
 require('dotenv').config();
 
 const indexRouter = require('./routes/pages');
@@ -50,6 +51,11 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(expressCspHeader({
+  directives: {
+    'script-src': [SELF, INLINE, "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+  }
+}));
 
 // Routes
 app.use('/', indexRouter);

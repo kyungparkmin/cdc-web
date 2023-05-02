@@ -4,7 +4,8 @@ const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares/auth');
 
 router.get('/', (req, res) => {
-  res.render('layout');
+  res.render('index', { user: req.user.dataValues });
+  console.log(req.user.dataValues);
 });
 
 router.get('/signup', isNotLoggedIn, (req, res) => {
