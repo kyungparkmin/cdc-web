@@ -22,7 +22,7 @@ module.exports = class Task extends Sequelize.Model {
   }
   static associate(db){
     db.Task.belongsTo(db.User);
-    db.Task.belongsTo(db.Agent, { foreignKey: "sourceId" });
-    db.Task.belongsTo(db.Agent, { foreignKey: "targetId" });
+    db.Task.belongsTo(db.Agent, { foreignKey: 'sourceId', as: 'source' });
+    db.Task.belongsTo(db.Agent, { foreignKey: 'targetId', as: 'target' });
   }
 };

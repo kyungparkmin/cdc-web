@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const passport = require('passport');
+const session = require("express-session");
 const { expressCspHeader, INLINE, SELF } = require('express-csp-header');
 require('dotenv').config();
 
@@ -19,7 +20,6 @@ const passportConfig = require('./passport');
 passportConfig();
 
 const { sequelize } = require('./models');
-const session = require("express-session");
 
 sequelize.sync({ force: false })
   .then(() => {

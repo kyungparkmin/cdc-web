@@ -12,14 +12,6 @@ exports.create = async (req, res, next) => {
   }
 }
 
-exports.find = async (req, res, next) => {
-  try {
-
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-}
 
 exports.drop = async (req, res, next) => {
   try {
@@ -35,30 +27,6 @@ exports.drop = async (req, res, next) => {
 exports.modify = async (req, res, next) => {
   try {
 
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-}
-
-exports.getSources = async (req, res, next) => {
-  try {
-
-  } catch (err) {
-
-  }
-}
-
-exports.getTargets = async (req, res, next) => {
-  try {
-    const targets = await Agent.findAll( {
-      where: {
-        UserId: req.user.id,
-        type: 1
-      }
-    });
-
-    res.json(targets);
   } catch (err) {
     console.error(err);
     next(err);
