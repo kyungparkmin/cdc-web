@@ -39,3 +39,25 @@ exports.task = async (req, res, next) => {
   }
 };
 
+exports.agent = async (req, res, next) => {
+  const pageNum = parseInt(req.query.page) || 1;
+  const limit = 6;
+
+  try {
+    const {count, rows: agents} = await Agent.findAndCountAll({
+      offset: limit * (pageNum - 1),
+      attributes: ['id', 'name', 'ip', 'createdAt', 'type'],
+      limit,
+      order: [['id', 'DESC']],
+      where: { UserId: req.user.id }
+    });
+
+    const pageCount = Math.ceil(count / limit);
+
+    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+

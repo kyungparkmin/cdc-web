@@ -13,22 +13,41 @@
 
 <button class="btn btn-primary float-end mt-3 me-3 btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD</button>
 <div class="content container-fluid bg-white" style="padding-left: 250px;">
-    <div class="row mt-5">
+    <!--<div class="row mt-5">
         <div class="col-md-4 mt-5">
             <div class="card mb-3" style="height: 150px;">
                 <div class="card-body">
-                    <h3 class="card-title">Target 1 </h3>
-                    <p class="card-text">127.0.0.1</p>
+                    <h3 class="card-title"></h3>
+                    <p class="card-text"></p>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <span></span>
                     <div>
                         <button class="btn btn-sm btn-primary me-2">수정</button>
-                        <button class="btn btn-sm btn-danger me-2" onclick="dropAgent(<%= agent.id %>);">삭제</button>
+                        <button class="btn btn-sm btn-danger me-2">삭제</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>-->
+    <div class="row mt-5">
+        <% agents.forEach(agent => { %>
+        <div class="col-md-4 mt-5">
+            <div class="card mb-3" style="height: 150px;">
+                <div class="card-body">
+                    <h3 class="card-title"><%= agent.name %></h3>
+                    <p class="card-text"><%= agent.ip %></p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <span></span>
+                    <div>
+                        <button class="btn btn-sm btn-primary me-2">수정</button>
+                        <button class="btn btn-sm btn-danger me-2" onclick="dropTask(<%= agent.id %>)">삭제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
     </div>
 </div>
 
