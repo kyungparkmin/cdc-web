@@ -46,7 +46,7 @@ exports.agent = async (req, res, next) => {
   try {
     const {count, rows: agents} = await Agent.findAndCountAll({
       offset: limit * (pageNum - 1),
-      attributes: ['id', 'name', 'ip', 'createdAt', 'type'],
+      attributes: ['id', 'name', 'path', 'createdAt', 'type'],
       limit,
       order: [['id', 'DESC']],
       where: { UserId: req.user.id }
@@ -54,7 +54,17 @@ exports.agent = async (req, res, next) => {
 
     const pageCount = Math.ceil(count / limit);
 
-    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum });
+    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum, agent: null });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
+exports.getAgentById = async (req, res, next) => {
+  try {
+    const agent = await Agent.findOne({ where: { id: req.params.id }});
+    res.json(agent);
   } catch (err) {
     console.error(err);
     next(err);

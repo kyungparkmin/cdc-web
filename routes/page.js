@@ -9,6 +9,8 @@ router.get('/', isLoggedIn, pageModule.task);
 
 router.get('/agent', isLoggedIn, pageModule.agent);
 
+router.get('/agent/:id', isLoggedIn, pageModule.getAgentById);
+
 router.get('/signup', isNotLoggedIn, (req, res) => {
   res.render('signup');
 });

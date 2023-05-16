@@ -7,7 +7,7 @@ module.exports = class Agent extends Sequelize.Model {
         type: Sequelize.STRING(50),
         allowNull: true
       },
-      ip: {
+      path: {
         type: Sequelize.STRING(50),
         allowNull: true
       },
@@ -19,10 +19,23 @@ module.exports = class Agent extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: true
       },
+      database: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      table: {
+        type: Sequelize.STRING(100),
+        allowNull: true
+      },
       type: {
         type: Sequelize.INTEGER, // 0 이면 source 1 이면 target
         allowNull: true
       },
+      status: {
+        type: Sequelize.INTEGER, // 0 이면 중지 1이면 실행중
+        allowNull: false,
+        defaultValue: 0
+      }
     }, {
       sequelize,
       timestamps: true,
