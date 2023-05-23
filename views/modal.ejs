@@ -1,0 +1,42 @@
+<!-- modal.ejs -->
+<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding-top: 70px; overflow: auto; height: 700px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agent 수정</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% if (agent) { %>
+        <form action="/agent/<%= agent.id %>" method="post">
+          <div class="mb-3">
+            <label class="form-label">NAME</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">PATH</label>
+            <input type="text" class="form-control" name="path" value="<%= agent.path %>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">USERNAME</label>
+            <input type="text" class="form-control" name="username" value="<%= agent.username %>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">PASSWORD</label>
+            <input type="text" class="form-control" name="password" value="<%= agent.password %>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">DATABASE</label>
+            <input type="text" class="form-control" name="database" value="<%= agent.database %>">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">TABLE</label>
+            <input type="text" class="form-control" name="table" value="<%= agent.table %>">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">수정</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

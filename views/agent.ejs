@@ -12,6 +12,25 @@
         width: 32px;
         height: 32px;
     }
+
+    #loading {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: black;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+        color: black;
+    }
+
+    @keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
 </style>
 <body>
 <!--진행상황 진행할 예정 내용-->
@@ -29,11 +48,21 @@
                         <p class="card-text"><%= agent.path %></p>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
+                        <% if (agent.status === 0) { %>
+
+                        <% } else { %>
+                                <div id="loading"></div>
+                        <% } %>
                         <span></span>
                         <div>
                             <img src="/images/edit-button.png" class="img" data-bs-toggle="modal"
                                  data-bs-target="#modifyModal" data-id="<%= agent.id %>">
                             <img src="/images/delete.png" class="img" onclick="dropAgent(<%= agent.id %>)">
+                            <% if (agent.status === 0) { %>
+                                <img src="/images/play.png" class="img"  onclick="start(<%= agent.id %>);" >
+                            <% } else { %>
+                                <img src="/images/stop-button.png" class="img" onclick="start(<%= agent.id %>);">
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -157,12 +186,24 @@
 
     modifyButtons.forEach((button) => {
       button.addEventListener('click', function () {
-        const agentId = this.dataset.id;
+        agentId = this.dataset.id;
+        console.log(this.dataset)
         fetchAgentInfo(agentId);
       });
     });
   });
 
+  const start = async (id) => {
+    try {
+      const response = await fetch(`/agent/start/${id}`, {
+        method: 'GET',
+      });
+      console.log(response);
+      location.href = "/agent";
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const modify = async () => {
     const fields = ['name', 'path', 'username', 'password', 'database', 'table'];
@@ -190,9 +231,6 @@
       console.error(error);
     }
   };
-
-
-
 </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 const { Agent } = require('../models');
 const fs = require('fs');
 const ini = require('ini');
-const {config} = require("dotenv");
 
 exports.create = async (req, res, next) => {
   const { name, path, username, password, database, table } = req.body;
@@ -28,13 +27,9 @@ exports.create = async (req, res, next) => {
 exports.modify = async (req, res, next) => {
   const { name, path, username, password, database, table } = req.body;
   try {
-    // Find the agent by id
-    const agent = await Agent.findOne({ where: { id: req.params.id } });
-
-    console.log(agent);
+    const agent = await Agent.findByPk(req.params.id);
 
     if (!agent) {
-      // If the agent is not found, return an error
       return res.status(404).send('Agent not found');
     }
 
@@ -69,6 +64,22 @@ exports.drop = async (req, res, next) => {
     next(err);
   }
 }
+
+exports.start = async (req, res, next) => {
+  try {
+    const agent = await Agent.findByPk(req.params.id); // 기본 키 조회를 위해 findByPk 사용
+
+    const newStatus = agent.status === 0 ? 1 : 0; // 새로운 상태 값을 결정합니다.
+
+    await Agent.update({ status: newStatus }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
+
+    res.send('실행중입니다');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 
 const writeIniFile = (configData, name) => {
   const configIni = ini.stringify(configData);

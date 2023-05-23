@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/font.css">
+</head>
+<style>
+    .img {
+        width: 32px;
+        height: 32px;
+    }
+
+    #loading {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: black;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+        color: black;
+    }
+
+    @keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+</style>
+<body>
+<!--진행상황 진행할 예정 내용-->
+<% include header.ejs %>
+
+<div class="content container-fluid bg-white" style="padding-left: 250px; width: 1500px;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 15%;">time</th>
+                <th scope="col" style="width: 10%;">agent</th>
+                <th scope="col" style="width: 50%;">message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2023-05-22 15:03</td>
+                <td>Test</td>
+                <td>the agent is running.</td>
+            </tr>
+            <tr>
+                <td>2023-05-22 15:03</td>
+                <td>Test</td>
+                <td>the agent is running.</td>
+            </tr>
+            <tr>
+                <td>2023-05-22 15:03</td>
+                <td>Test</td>
+                <td>the agent is running.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<% include sidebar.ejs %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
