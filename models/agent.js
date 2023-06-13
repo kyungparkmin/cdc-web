@@ -4,15 +4,19 @@ module.exports = class Agent extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: true
       },
       path: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
+        allowNull: true
+      },
+      topic: {
+        type: Sequelize.STRING(255),
         allowNull: true
       },
       username: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: true
       },
       password: {
@@ -20,11 +24,11 @@ module.exports = class Agent extends Sequelize.Model {
         allowNull: true
       },
       database: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: true
       },
       table: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(255),
         allowNull: true
       },
       type: {

@@ -17,10 +17,9 @@ body {
     overflow-y: auto;
     /* Sidebar width */
     width: 250px;
-    /* Background color */
-    /*background: #f8f9fa;*/
+    /* Background gradient */
+    background: linear-gradient(to bottom, #6D7EAA, #4B5A8C);
     padding: 20px;
-    background-color: #6D7EAA;
 }
 /* Sidebar header */
 .sidebar-header {
@@ -28,21 +27,27 @@ body {
 }
 /* Sidebar menu */
 .sidebar-menu {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
+
 .sidebar-menu li {
     margin-bottom: 10px;
 }
+
 .sidebar-menu li a {
     display: block;
-    /* Text color */
-    color: #212529;
-    /* Hover text color */
+    padding: 10px;
     text-decoration: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
 }
 .sidebar-menu li.active a {
-    /* Active text color */
-    color: #007bff;
+    background-color: #fff;
+    color: #6D7EAA;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #8799C0;
 }

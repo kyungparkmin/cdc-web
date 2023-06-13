@@ -9,10 +9,23 @@
 <body>
   <div class="sidebar">
     <ul class="sidebar-menu">
-      <li ><a href="/">Task</a></li>
-      <li ><a href="/agent">Agent</a></li>
-      <li class="active"><a href="/log">Log</a></li>
+      <li><a href="/agent">Agent</a></li>
+      <li><a href="/log">Log</a></li>
     </ul>
   </div>
 </body>
+<script>
+  window.onload = function() {
+    const currentUrl = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu li a');
+
+    sidebarLinks.forEach(function(link) {
+      const href = link.getAttribute('href');
+
+      if (currentUrl === href) {
+        link.parentNode.classList.add('active');
+      }
+    });
+  };
+</script>
 </html>

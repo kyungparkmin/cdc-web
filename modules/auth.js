@@ -19,7 +19,7 @@ exports.login = async (req, res, next) => {
           console.error(loginError);
           return res.status(400).json({success: false, message: "로그인에 실패하였습니다"});
         }
-        return res.redirect('/');
+        return res.redirect('/agent');
       })
     })(req, res, next);
   } catch (err) {
@@ -41,7 +41,7 @@ exports.signup = async (req, res, next) => {
     } else {
       await User.create({ username, password: hash });
 
-      return res.redirect('/');
+      return res.redirect('/agent');
     }
   } catch (err) {
     console.error(err);
