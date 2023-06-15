@@ -85,56 +85,6 @@ exports.start = async (req, res, next) => {
   }
 };
 
-/*exports.start1 = async (req, res, next) => {
-  if (cluster.isMaster) {
-    const newWorker = cluster.fork();
-
-    const module = spawn('g++', ['test.cpp', '-o', `test_${newWorker.id}`]);
-    module.on('close', (code) => {
-      console.log(`모듈 컴파일 완료 (${code})`);
-
-      const exe = spawn(`./test_${newWorker.id}`);
-      moduleProcesses[newWorker.id] = {
-        process: exe,
-        name: `test_${newWorker.id}`
-      };
-
-      exe.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}, ${newWorker.id}`);
-      });
-      exe.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-      });
-      exe.on('close', (code) => {
-        console.log(`모듈 실행 완료 (${code})`);
-        delete moduleProcesses[newWorker.id];
-      });
-
-      console.log(`Worker ${newWorker.id} added`);
-      console.log(moduleProcesses);
-      res.redirect('/');
-    });
-  }
-};*/
-
-
-exports.stop = async (req, res, next) => {
-  try {
-    const processId = req.params.id;
-    console.log(`Exiting process ${processId}`);
-
-    if(moduleProcesses[processId]) {
-      moduleProcesses[processId].process.kill();
-      delete moduleProcesses[processId];
-    }
-
-    res.redirect('/agent');
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
 
 const writeIniFile = (configData, name) => {
   const configIni = ini.stringify(configData);

@@ -75,6 +75,20 @@ const start = async (id) => {
   }
 }
 
+
+const stop = async (id) => {
+  try {
+    const response = await fetch(`/agent/stop/${id}`, {
+      method: 'GET'
+    });
+    console.log(response);
+    location.href = "/agent";
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 const modify = async () => {
   const fields = ['name', 'path', 'username', 'password', 'database', 'table'];
   const updatedAgent = fields.reduce((obj, field) => {

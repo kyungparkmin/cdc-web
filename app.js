@@ -66,14 +66,26 @@ app.use('/auth', authRouter);
 app.use('/task', taskRouter);
 app.use('/agent', agentRouter);
 
-app.get('/add-worker', (req, res) => {
-  const workerId = Date.now(); // 고유한 워커 ID 생성
+let moduleProcesses = {};
+
+const { Agent } = require('./models');
+
+app.get('/agent/start/:id', async (req, res) => {
+  const workerId = req.params.id // 고유한 워커 ID 생성
+
+  await Agent.update({ status: 1 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
 
   const cpp = spawn('g++', ['test.cpp', '-o', `test_${workerId}`]);
   cpp.on('close', (code) => {
-    console.log(`C++ 파일 컴파일 완료 (${code})`);
+    console.log(`C++ 모듈 컴파일 완료 (${code})`);
 
     const exe = spawn(`./test_${workerId}`);
+    moduleProcesses[workerId] = {
+      process: exe,
+      name: `test_${workerId}`
+    };
+
+    console.log(moduleProcesses);
 
     exe.stdout.on('data', (data) => {
       console.log(`stdout: ${data}, ${workerId}`);
@@ -83,16 +95,34 @@ app.get('/add-worker', (req, res) => {
 
       deleteExeFile(workerId);
     });
-    exe.on('close', (code) => {
-      console.log(`C++ 파일 실행 완료 (${code})`);
+    exe.on('close', async(code) => {
+      console.log(`C++ 모듈 실행 완료 (${code})`);
 
       deleteExeFile(workerId)
+
+      await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
     });
   });
 
   console.log(`Worker ${workerId} added`);
   res.redirect('/');
 });
+
+app.get('/agent/stop/:id', async (req, res, next) => {
+  const workerId = req.params.id;
+  console.log(`Exiting process ${workerId}`);
+
+  await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
+
+  if (moduleProcesses[workerId]) {
+    moduleProcesses[workerId].process.kill(); // 지정된 프로세스 종료
+    delete moduleProcesses[workerId];
+
+    deleteExeFile(workerId);
+  }
+
+  res.redirect('/');
+})
 
 // 실행된 exe 파일 삭제하는 함수
 const deleteExeFile = (workerId) => {
