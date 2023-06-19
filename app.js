@@ -68,7 +68,7 @@ app.use('/agent', agentRouter);
 
 let moduleProcesses = {};
 
-const { Agent } = require('./models');
+const { Agent, Log } = require('./models');
 
 app.get('/agent/start/:id', async (req, res) => {
   const workerId = req.params.id // 고유한 워커 ID 생성
@@ -87,13 +87,17 @@ app.get('/agent/start/:id', async (req, res) => {
 
     console.log(moduleProcesses);
 
-    exe.stdout.on('data', (data) => {
+    exe.stdout.on('data', async(data) => {
       console.log(`stdout: ${data}, ${workerId}`);
+
+      await Log.create({ message: data.toString(), AgentId: workerId});
     });
-    exe.stderr.on('data', (data) => {
+    exe.stderr.on('data', async(data) => {
       console.error(`stderr: ${data}`);
 
       deleteExeFile(workerId);
+
+      await Agent.update({ status: 9 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
     });
     exe.on('close', async(code) => {
       console.log(`C++ 모듈 실행 완료 (${code})`);
@@ -155,3 +159,6 @@ app.use(function(err, req, res, next) {
 const server = app.listen(3000, () => {
   console.log(`listening on port ${server.address().port}`);
 });
+
+
+// 0 = 중지됨 1 = 실행중 9 = 에러로 인한 중지

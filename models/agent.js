@@ -53,5 +53,6 @@ module.exports = class Agent extends Sequelize.Model {
   }
   static associate(db){
     db.Agent.belongsTo(db.User);
+    db.Agent.hasMany(db.Log, { foreignKey: 'AgentId' });
   }
 };

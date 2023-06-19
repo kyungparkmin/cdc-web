@@ -1,4 +1,4 @@
-const { Agent, Task} = require('../models');
+const { Agent, Task, Log } = require('../models');
 
 exports.task = async (req, res, next) => {
   const pageNum = parseInt(req.query.page) || 1;
@@ -77,3 +77,19 @@ exports.log = async (req, res, next) => {
   res.render('log', { user: req.user, title: "Log" });
 }
 
+exports.detail = async (req, res, next) => {
+  try {
+    const agent = await Agent.findByPk(req.params.id);
+    const log = await Log.findAll({
+      where: { AgentId: req.params.id },
+      include: Agent
+    });
+
+    console.log(agent);
+
+    res.render('detail', { user: req.user, title: "Detail", agent, log});
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
