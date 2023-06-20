@@ -9,7 +9,14 @@ router.get('/', isLoggedIn, pageModule.task);
 
 router.get('/agent', isLoggedIn, pageModule.agent);
 
+router.get('/agent/stop', isLoggedIn, pageModule.stopAgents);
+
+router.get('/agent/loading', isLoggedIn, pageModule.loadingAgents);
+
+router.get('/agent/error', isLoggedIn, pageModule.errorAgents);
+
 router.get('/agent/:id', isLoggedIn, pageModule.getAgentById);
+
 
 router.get('/log', isLoggedIn, pageModule.log);
 

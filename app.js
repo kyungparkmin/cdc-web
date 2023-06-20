@@ -21,7 +21,6 @@ const passportConfig = require('./passport');
 passportConfig();
 
 const { sequelize } = require('./models');
-const cluster = require("cluster");
 
 sequelize.sync({ force: false })
   .then(() => {
@@ -56,7 +55,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressCspHeader({
   directives: {
-    'script-src': [SELF, INLINE, 'https://fonts.googleapis.com', 'https://cdn.jsdelivr.net'],
+    'script-src': [SELF, INLINE, 'https://fonts.googleapis.com', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com', 'https://ajax.googleapis.com'],
   },
 }));
 

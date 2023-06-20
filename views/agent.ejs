@@ -31,6 +31,22 @@
     @-webkit-keyframes spin {
         to { -webkit-transform: rotate(360deg); }
     }
+
+    .small-red-circle {
+        width: 25px;
+        height: 25px;
+        background-color: red;
+        border-radius: 50%;
+        margin-top: 5px;
+    }
+
+    .small-yellow-circle {
+        width: 25px;
+        height: 25px;
+        background-color: yellow;
+        border-radius: 50%;
+        margin-top: 5px;
+    }
 </style>
 <body>
 <!--진행상황 진행할 예정 내용-->
@@ -49,9 +65,11 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <% if (agent.status === 0) { %>
-
-                        <% } else { %>
-                                <div id="loading"></div>
+                            <div class="small-red-circle"></div>
+                        <% } else if (agent.status === 1) { %>
+                            <div id="loading"></div>
+                        <% } else if (agent.status === 9) { %>
+                            <div class="small-yellow-circle"></div>
                         <% } %>
                         <span></span>
                         <div>

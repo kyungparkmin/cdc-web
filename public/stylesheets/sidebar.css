@@ -13,14 +13,13 @@ body {
     bottom: 0;
     left: 0;
     z-index: 100;
-    /* Enable scrolling */
     overflow-y: auto;
-    /* Sidebar width */
-    width: 250px;
-    /* Background gradient */
     background: linear-gradient(to bottom, #6D7EAA, #4B5A8C);
     padding: 20px;
+    width: 100%; /* 수정된 부분: 사이드바의 넓이를 100%로 설정 */
+    max-width: 250px; /* 추가된 부분: 사이드바의 최대 넓이를 250px로 제한 */
 }
+
 /* Sidebar header */
 .sidebar-header {
     margin-bottom: 20px;
@@ -51,3 +50,52 @@ body {
 .sidebar-menu li a:hover {
     background-color: #8799C0;
 }
+
+.dropdown-menu {
+    display: none;
+    width: 100%;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: #fff; /* 수정된 부분: 드롭다운 메뉴의 배경색을 수정 */
+    color: #6D7EAA; /* 수정된 부분: 드롭다운 메뉴의 글자색을 수정 */
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #6D7EAA, #4B5A8C);
+    padding: 20px;
+    width: 100%;
+    max-width: 250px;
+}
+
+/* Sidebar menu */
+.sidebar-menu li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000; /* 수정된 부분: 텍스트 색상을 검은색으로 변경 */
+    transition: background-color 0.3s ease;
+}
+.sidebar-menu li.active a {
+    background-color: #fff;
+    color: #6D7EAA;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #8799C0;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: #6D7EAA; /* 수정된 부분: 드롭다운 메뉴의 배경색을 수정 */
+    color: #fff; /* 수정된 부분: 드롭다운 메뉴의 글자색을 수정 */
+}
+

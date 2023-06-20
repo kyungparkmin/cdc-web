@@ -62,6 +62,75 @@ exports.agent = async (req, res, next) => {
   }
 }
 
+exports.stopAgents = async (req, res, next) => {
+  const pageNum = parseInt(req.query.page) || 1;
+  const limit = 6;
+
+  try {
+    const {count, rows: agents} = await Agent.findAndCountAll({
+      offset: limit * (pageNum - 1),
+      attributes: ['id', 'name', 'path', 'createdAt', 'type', 'status'],
+      limit,
+      order: [['id', 'DESC']],
+      where: { UserId: req.user.id, status: 0 }
+    });
+
+
+    const pageCount = Math.ceil(count / limit);
+
+    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum, agent: null });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
+exports.loadingAgents = async (req, res, next) => {
+  const pageNum = parseInt(req.query.page) || 1;
+  const limit = 6;
+
+  try {
+    const {count, rows: agents} = await Agent.findAndCountAll({
+      offset: limit * (pageNum - 1),
+      attributes: ['id', 'name', 'path', 'createdAt', 'type', 'status'],
+      limit,
+      order: [['id', 'DESC']],
+      where: { UserId: req.user.id, status: 1 }
+    });
+
+
+    const pageCount = Math.ceil(count / limit);
+
+    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum, agent: null });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
+exports.errorAgents = async (req, res, next) => {
+  const pageNum = parseInt(req.query.page) || 1;
+  const limit = 6;
+
+  try {
+    const {count, rows: agents} = await Agent.findAndCountAll({
+      offset: limit * (pageNum - 1),
+      attributes: ['id', 'name', 'path', 'createdAt', 'type', 'status'],
+      limit,
+      order: [['id', 'DESC']],
+      where: { UserId: req.user.id, status: 9 }
+    });
+
+
+    const pageCount = Math.ceil(count / limit);
+
+    res.render('agent', { user: req.user, title: "Agent", agents, pageCount, page: pageNum, agent: null });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}
+
 exports.getAgentById = async (req, res, next) => {
   try {
     const agent = await Agent.findByPk(req.params.id);
