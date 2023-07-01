@@ -1,4 +1,5 @@
 const { Agent, Task, Log } = require('../models');
+const fs = require('fs');
 
 exports.task = async (req, res, next) => {
   const pageNum = parseInt(req.query.page) || 1;
@@ -149,16 +150,43 @@ exports.log = async (req, res, next) => {
 exports.detail = async (req, res, next) => {
   try {
     const agent = await Agent.findByPk(req.params.id);
-    const log = await Log.findAll({
-      where: { AgentId: req.params.id },
-      include: Agent
+
+    const log = [];
+
+    fs.readFile('log.txt', 'utf-8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return next(err);
+      }
+
+      const logEntries = data.split('\n');
+
+      logEntries.forEach((entry) => {
+
+        const [dateTime, logInfo] = entry.split(']');
+        const [date, level] = dateTime.trim().split('3 ');
+        const [, message] = logInfo.trim().split(':');
+
+        const logItem = {
+          time: date + '3',
+          level: level + ']',
+          message: message.trim()
+        };
+        log.push(logItem);
+      });
+
+      console.log(log);
+      res.render('detail', { user: req.user, title: "Detail", agent, log});
     });
-
-    console.log(agent);
-
-    res.render('detail', { user: req.user, title: "Detail", agent, log});
   } catch (error) {
     console.error(error);
     next(error);
   }
 }
+
+
+
+
+
+/*
+*/

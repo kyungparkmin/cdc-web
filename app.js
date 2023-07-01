@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const passport = require('passport');
 const session = require('express-session');
 const { expressCspHeader, SELF, INLINE } = require('express-csp-header');
+const createError = require("http-errors");
 const { spawn } = require('child_process');
 const fs = require('fs')
 require('dotenv').config();
@@ -88,22 +89,20 @@ app.get('/agent/start/:id', async (req, res) => {
 
     exe.stdout.on('data', async(data) => {
       console.log(`stdout: ${data}, ${workerId}`);
-
-      await Log.create({ message: data.toString(), AgentId: workerId});
     });
-    exe.stderr.on('data', async(data) => {
+    exe.stderr.on('data', async (data) => {
       console.error(`stderr: ${data}`);
 
       deleteExeFile(workerId);
 
-      await Agent.update({ status: 9 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
+      await Agent.update({ status: 9 }, { where: { id: req.params.id } });
     });
     exe.on('close', async(code) => {
       console.log(`C++ 모듈 실행 완료 (${code})`);
 
       deleteExeFile(workerId)
 
-      await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
+      await Agent.update({ status: 0 }, { where: { id: req.params.id } });
     });
   });
 
@@ -115,7 +114,7 @@ app.get('/agent/stop/:id', async (req, res, next) => {
   const workerId = req.params.id;
   console.log(`Exiting process ${workerId}`);
 
-  await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
+  await Agent.update({ status: 0 }, { where: { id: req.params.id } });
 
   if (moduleProcesses[workerId]) {
     moduleProcesses[workerId].process.kill(); // 지정된 프로세스 종료

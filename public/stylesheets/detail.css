@@ -1,0 +1,78 @@
+body, html {
+    margin: 0;
+    padding-left: 120px;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.column {
+    flex: 1;
+    padding: 20px;
+}
+
+.left-column {
+    flex-basis: 30%;
+    background-color: #f5f5f5;
+}
+
+.right-column {
+    flex-basis: 70%;
+}
+
+.scrollable-table {
+    max-height: 100%; /* 적절한 높이 값으로 변경하세요 */
+    overflow-y: auto;
+}
+
+.data-container {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.data-container p {
+    margin: 0;
+}
+
+.label {
+    font-size: 20px;
+}
+
+.value {
+    font-size: 18px;
+}
+
+td {
+    font-size: 13px;
+}
+
+.error-status {
+    color: #FF0000;
+}
+
+.start-status {
+    color: #3cd53c;
+}
+
+.down {
+    color: #808080;
+}
+
+.syslog {
+    color: #0000FF;
+}
+
+.unknown {
+    color: #CCCCCC;
+}
+
+.warning {
+    color: #c95b41;
+}
+
+
+
