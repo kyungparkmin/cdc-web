@@ -174,8 +174,6 @@ exports.detail = async (req, res, next) => {
         };
         log.push(logItem);
       });
-
-      console.log(log);
       res.render('detail', { user: req.user, title: "Detail", agent, log});
     });
   } catch (error) {
