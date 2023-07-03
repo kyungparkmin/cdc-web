@@ -100,32 +100,48 @@
             <div class="modal-body">
                 <form action="/agent" method="post">
                     <div class="mb-3">
-                        <label class="form-label">NAME</label>
-                        <input type="text" class="form-control" name="name">
+                        <label class="form-label">Agent-NAME</label>
+                        <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">PATH</label>
-                        <input type="text" class="form-control" name="path">
+                        <label class="form-label">Kafka-IP</label>
+                        <input type="text" class="form-control" name="path" id="path">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">TOPIC</label>
+                        <label class="form-label">Kafka-PORT</label>
+                        <input type="text" class="form-control" name="port" id="port">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kafka-TOPIC</label>
                         <input type="text" class="form-control" name="topic" id="topic">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">USERNAME</label>
-                        <input type="text" class="form-control" name="username">
+                        <label class="form-label">Source-DB-User</label>
+                        <input type="text" class="form-control" name="username" id="username">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">PASSWORD</label>
-                        <input type="password" class="form-control" name="password">
+                        <label class="form-label">Source-DB-Table</label>
+                        <input type="text" class="form-control" name="table" id="table">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">DATABASE</label>
-                        <input type="text" class="form-control" name="database">
+                        <label class="form-label">Target-DB-IP</label>
+                        <input type="text" class="form-control" name="target_ip" id="target_ip">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">TABLE</label>
-                        <input type="text" class="form-control" name="table">
+                        <label class="form-label">Target-DB-Port</label>
+                        <input type="text" class="form-control" name="target_port" id="target_port">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Target-DB-Name</label>
+                        <input type="text" class="form-control" name="target_name" id="target_name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Target-DB-Password</label>
+                        <input type="text" class="form-control" name="target_password" id="target_password">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">export-log-path</label>
+                        <input type="text" class="form-control" name="export_log_path" id="export_log_path">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">생성</button>
                 </form>
@@ -143,32 +159,48 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label class="form-label">NAME</label>
+                    <label class="form-label">Agent-NAME</label>
                     <input type="text" class="form-control" name="name" id="name">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">PATH</label>
+                    <label class="form-label">Kafka-IP</label>
                     <input type="text" class="form-control" name="path" id="path">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">TOPIC</label>
+                    <label class="form-label">Kafka-PORT</label>
+                    <input type="text" class="form-control" name="port" id="port">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Kafka-TOPIC</label>
                     <input type="text" class="form-control" name="topic" id="topic">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">USERNAME</label>
+                    <label class="form-label">Source-DB-User</label>
                     <input type="text" class="form-control" name="username" id="username">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">PASSWORD</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">DATABASE</label>
-                    <input type="text" class="form-control" name="database" id="database">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">TABLE</label>
+                    <label class="form-label">Source-DB-Table</label>
                     <input type="text" class="form-control" name="table" id="table">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target-DB-IP</label>
+                    <input type="text" class="form-control" name="target_ip" id="target_ip">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target-DB-Port</label>
+                    <input type="text" class="form-control" name="target_port" id="target_port">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target-DB-Name</label>
+                    <input type="text" class="form-control" name="target_name" id="target_name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Target-DB-Password</label>
+                    <input type="text" class="form-control" name="target_password" id="target_password">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">export-log-path</label>
+                    <input type="text" class="form-control" name="export_log_path" id="export_log_path">
                 </div>
                 <button type="submit" class="btn btn-primary w-100" onclick="modify()">수정</button>
             </div>

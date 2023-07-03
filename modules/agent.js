@@ -6,17 +6,21 @@ const { spawn } = require('child_process');
 let moduleProcesses = {}; // 모듈을 추적하기 위한 객체
 
 exports.create = async (req, res, next) => {
-  const { name, path, topic, username, password, database, table } = req.body;
+  const { export_log_path, name, path, port, topic, username, table, target_ip, target_port, target_name, target_password } = req.body;
   try {
-    await Agent.create({ name, path, topic, username, password, database, table, UserId: req.user.id });
+    await Agent.create({ name, path, port, topic, username, table, target_ip, target_port, target_name, target_password, UserId: req.user.id });
 
     const configData = {
-      'kafka-path': path,
+      'export-log-path': export_log_path,
+      'kafka-ip': path,
+      'kafka-port': port,
       'kafka-topic': topic,
-      'kafka-username': username,
-      'kafka-password': password,
-      'db-name': database,
-      'table-name': table
+      'source-db-user': username,
+      'source-db-table': table,
+      'target-db-ip': target_ip,
+      'target-db-port': target_port,
+      'target-db-name': target_name,
+      'target-db-password': target_password,
     };
 
     writeIniFile(configData, name);
@@ -29,7 +33,7 @@ exports.create = async (req, res, next) => {
 }
 
 exports.modify = async (req, res, next) => {
-  const { name, path, topic,username, password, database, table } = req.body;
+  const { export_log_path, name, path, port, topic, username, table, target_ip, target_port, target_name, target_password } = req.body;
   try {
     const agent = await Agent.findByPk(req.params.id);
 
@@ -38,15 +42,19 @@ exports.modify = async (req, res, next) => {
     }
 
     // Update the agent with the new data
-    await agent.update({ name, path, topic, username, password, database, table });
+    await agent.update({ name, path, port, topic, username, table, target_ip, target_port, target_name, target_password });
 
     const configData = {
-      'kafka-path': path,
+      'export-log-path': export_log_path,
+      'kafka-ip': path,
+      'kafka-port': port,
       'kafka-topic': topic,
-      'kafka-username': username,
-      'kafka-password': password,
-      'db-name': database,
-      'table-name': table
+      'source-db-user': username,
+      'source-db-table': table,
+      'target-db-ip': target_ip,
+      'target-db-port': target_port,
+      'target-db-name': target_name,
+      'target-db-password': target_password,
     };
 
     writeIniFile(configData, name);
@@ -89,7 +97,7 @@ exports.start = async (req, res, next) => {
 const writeIniFile = (configData, name) => {
   const configIni = ini.stringify(configData);
 
-  const configFilePath = `${name}_config.ini`;
+  const configFilePath = `config.ini`;
 
   fs.writeFileSync(configFilePath, configIni);
 }

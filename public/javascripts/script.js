@@ -90,7 +90,7 @@ const stop = async (id) => {
 
 
 const modify = async () => {
-  const fields = ['name', 'path', 'username', 'password', 'database', 'table'];
+  const fields = ['name', 'path', 'port', 'topic', 'username', 'database', 'target_ip', 'target_name', 'target_port', 'target_password', 'export_log_path'];
   const updatedAgent = fields.reduce((obj, field) => {
     obj[field] = document.getElementById(field).value;
     return obj;

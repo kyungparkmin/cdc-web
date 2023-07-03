@@ -18,21 +18,26 @@
         <h1><%= agent.name %></h1>
         <p><%= agent.path %></p>
         <hr>
-
-        <span class="label">Topic :</span>
+        <span class="label">Kafka-Topic :</span>
         <span class="value"><%= agent.topic %></span><br><br>
 
-        <span class="label">Username :</span>
+        <span class="label">Source-DB-User :</span>
         <span class="value"><%= agent.username %></span><br><br>
 
-        <span class="label">Password :</span>
-        <span class="value"><%= agent.password %></span><br><br>
-
-        <span class="label">Database :</span>
-        <span class="value"><%= agent.database %></span><br><br>
-
-        <span class="label">Table :</span>
+        <span class="label">Source-DB-Table :</span>
         <span class="value"><%= agent.table %></span><br><br>
+
+        <span class="label">Target-DB-IP :</span>
+        <span class="value"><%= agent.target_ip %></span><br><br>
+
+        <span class="label">Target-DB-Port :</span>
+        <span class="value"><%= agent.target_port %></span><br><br>
+
+        <span class="label">Target-DB-Name :</span>
+        <span class="value"><%= agent.target_name %></span><br><br>
+
+        <span class="label">Target-DB-Password :</span>
+        <span class="value"><%= agent.target_password %></span><br><br>
 
         <span class="label">Status :</span>
         <span class="value"><%= agent.status %></span><br><br>
@@ -73,9 +78,6 @@
                         <td class="<%= logClass %>"><%= log.message %></td>
                     </tr>
                 <% }); %>
-
-
-
                 </tbody>
             </table>
         </div>

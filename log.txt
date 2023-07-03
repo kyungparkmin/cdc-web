@@ -3,7 +3,6 @@ Sat Jul  1 11:14:50 2023 [Error]: server start
 Sat Jul  1 11:18:59 2023 [Start]: server start
 Sat Jul  1 11:19:01 2023 [Warning]: server down
 Sat Jul  1 11:19:05 2023 [Down]: server start
-<<<<<<< HEAD
 Sat Jul  1 11:19:06 2023 [Unknown]: server down
 Sat Jul  1 11:14:47 2023 [Syslog]: server start
 Sat Jul  1 11:14:50 2023 [Error]: server start
@@ -22,6 +21,3 @@ Sat Jul  1 11:14:50 2023 [Error]: server start
 Sat Jul  1 11:18:59 2023 [Start]: server start
 Sat Jul  1 11:19:01 2023 [Warning]: server down
 Sat Jul  1 11:19:05 2023 [Down]: server start
-=======
->>>>>>> origin/main
-Sat Jul  1 11:19:06 2023 [Unknown]: server down

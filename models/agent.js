@@ -19,10 +19,6 @@ module.exports = class Agent extends Sequelize.Model {
         type: Sequelize.STRING(255),
         allowNull: true
       },
-      password: {
-        type: Sequelize.STRING(100),
-        allowNull: true
-      },
       database: {
         type: Sequelize.STRING(255),
         allowNull: true
@@ -39,7 +35,23 @@ module.exports = class Agent extends Sequelize.Model {
         type: Sequelize.INTEGER, // 0 이면 중지 1이면 실행중
         allowNull: false,
         defaultValue: 0
-      }
+      },
+      target_ip: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      target_port: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      target_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      target_password: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true,
