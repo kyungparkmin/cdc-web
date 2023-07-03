@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const passport = require('passport');
 const session = require('express-session');
 const { expressCspHeader, SELF, INLINE } = require('express-csp-header');
-const createError = require("http-errors");
 const { spawn } = require('child_process');
 const fs = require('fs')
 require('dotenv').config();
@@ -89,16 +88,22 @@ app.get('/agent/start/:id', async (req, res) => {
 
     exe.stdout.on('data', async(data) => {
       console.log(`stdout: ${data}, ${workerId}`);
+
+      await Log.create({ message: data.toString(), AgentId: workerId});
     });
-    exe.stderr.on('data', async (data) => {
+    exe.stderr.on('data', async(data) => {
       console.error(`stderr: ${data}`);
 
-      await Agent.update({ status: 9 }, { where: { id: req.params.id } });
+      deleteExeFile(workerId);
+
+      await Agent.update({ status: 9 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
     });
     exe.on('close', async(code) => {
       console.log(`C++ 모듈 실행 완료 (${code})`);
 
-      await Agent.update({ status: 0 }, { where: { id: req.params.id } });
+      deleteExeFile(workerId)
+
+      await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
     });
   });
 
@@ -110,15 +115,29 @@ app.get('/agent/stop/:id', async (req, res, next) => {
   const workerId = req.params.id;
   console.log(`Exiting process ${workerId}`);
 
-  await Agent.update({ status: 0 }, { where: { id: req.params.id } });
+  await Agent.update({ status: 0 }, { where: { id: req.params.id } }); // 상태를 직접적으로 업데이트합니다.
 
   if (moduleProcesses[workerId]) {
     moduleProcesses[workerId].process.kill(); // 지정된 프로세스 종료
     delete moduleProcesses[workerId];
+
+    deleteExeFile(workerId);
   }
 
   res.redirect('/');
 })
+
+// 실행된 exe 파일 삭제하는 함수
+const deleteExeFile = (workerId) => {
+  const exeFileName = `test_${workerId}.exe`;
+  fs.unlink(exeFileName, (err) => {
+    if (err) {
+      console.error(`Failed to delete file ${exeFileName}: ${err}`);
+    } else {
+      console.log(`File ${exeFileName} deleted`);
+    }
+  });
+};
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
